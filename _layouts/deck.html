@@ -1,0 +1,15 @@
+---
+layout: decktech
+---
+
+<p class=""><strong>Deck ID:</strong> {{ page.id }}</p>
+<p class="deck-author"><strong>Author:</strong> {{ page.author }}</p>
+<p class="deck-title"><strong>Title:</strong> {{ page.title }}</p>
+<p class="deck-side"><strong>Side:</strong> {{ page.side }}</p>
+<p class=""><strong>Date Published:</strong> {{ page.date }}</p>
+<p class="deck-description"><strong>Description:</strong><br />{{ page.description }}</p>
+<p class="deck-rating"><strong>Rating:</strong><br />{{ page.rating }}</p>
+
+<p>
+{{ page.content | newline_to_br }}
+</p>

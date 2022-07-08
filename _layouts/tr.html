@@ -1,14 +1,14 @@
 ---
-layout: archive
+layout: decktech
 ---
 
-<p><b>
-  Title: {{ page.title }} <br>
-  Author: {{ page.author }} <br>
-  Date: {{ page.date | date: "%b %-d, %Y" }} <br>
-</b></p>
-<p>
-  {{content}}
-</p>
+<p class="deck-author"><strong>Author:</strong> {{ page.author }}</p>
+<p class="deck-title"><strong>Title:</strong> {{ page.title }}</p>
+<p class=""><strong>Date Published:</strong> {{ page.date }}</p>
 
+<p>
+<table><tr>
+{{ page.content | newline_to_br }}
+</tr></table>
+</p>
 
