@@ -1,0 +1,68 @@
+---
+
+name: build and deploy decktech.net website
+
+on: 
+  push: 
+    branches: 
+      - main
+
+jobs:
+  deploy-holotable-website: 
+    runs-on: "ubuntu-latest"
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - uses: actions/checkout@main
+      - run: "sleep 5"
+
+      - name: Set up Ruby 3.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0
+
+      - name: jekyll build
+        run: |+
+          pip3 install python-frontmatter
+          ##
+          mkdir _decks_indexes ; true
+          echo
+          echo "Make deck indexes"
+          echo
+          cd _decks
+          python3 _make_posts_indexes.py
+          cd ..
+          ##
+          mkdir _tournament_reports_indexes ; true
+          echo
+          echo "Make tournament report indexes"
+          echo
+          cd _tournament_reports
+          python3 _make_reports_indexes.py
+          cd ..
+          ##
+          bundle
+          bundle exec jekyll build
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: "arn:aws:iam::230787692442:role/githuboidc-decktechnet-website"
+          role-session-name: "deckTechNetWebsiteWorkflow"
+          aws-region: "us-east-2"
+
+      - name: sts check
+        run: "aws sts get-caller-identity"
+
+      - name: s3_website push
+        run: |
+          aws s3 sync _site/ s3://decktech.net/
+          #aws cloudfront create-invalidation --distribution-id E2YAV8XKR86PXW  --paths "/" "/*"
+
+
+
+
+
+
+
