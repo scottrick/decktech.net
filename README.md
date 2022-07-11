@@ -1,5 +1,4 @@
-DeckTech.net Archive
-====================
+![DeckTech.net Archive](img/dechnet_archive.gif)
 
 * Contents retrieved from archive.org for the old DeckTech.net website.
 * Website built is a static content site.
