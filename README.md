@@ -20,6 +20,26 @@ bundle exec jekyll build
 bundle exec jekyll serve
 ```
 
+## Generating the Index Pages
+
+* The **Decks** and **Tournament Reports** are indexed dynamically by scripts within the `_decks` and `_tournament_reports`.
+* The scripts are written in Python3.
+* The scripts use the `python-frontmatter` module to parse the frontmatter for the decks and tournament reports.
+
+```bash
+pip3 install python-frontmatter
+
+cd _decks
+python3 _decks/_make_posts_indexes.py
+cd ..
+cd _tournament_reports
+python3 _decks/_make_reports_indexes.py
+cd ..
+
+jekyll build
+```
+
+
 ## Contributing other games from the DeckTech.net archives
 
 * The SWCCG Player's Committee owns the DeckTech.net domain, which is why all the content currently hosted here is SWCCG focused.
